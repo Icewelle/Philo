@@ -6,11 +6,18 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:33:24 by cluby             #+#    #+#             */
-/*   Updated: 2024/10/28 23:30:17 by cluby            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:39:40 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+t_error handle_args(int argc)
+{
+	if (argc < 5 || argc > 6)
+		return (NBR_ARGS);
+	return (OK);
+}
 
 int	ft_isdigit(int c)
 {
@@ -18,28 +25,50 @@ int	ft_isdigit(int c)
 		return (true);
 	return (false);
 }
+void	init_data(t_data *data)
+{
+	data->nbr_philo = 0;
+	data->ttd = 0;
+	data->tte = 0;
+	data->tts = 0;
+	data->nbr_eating = 0;
+	data->is_dead = false;
+	data->error = OK;
+}
+
+static void	init_vars(t_varatoi *vars)
+{
+	vars->digit = 0;
+	vars->i = 0;
+	vars->is_negative = 1;
+	vars->number = 0;
+}
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	number;
-	int	is_negative;
+	t_varatoi	vars;
 
-	i = 0;
-	number = 0;
-	is_negative = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+
+	init_vars(&vars);
+	while ((str[vars.i] >= 9 && str[vars.i] <= 13) || str[vars.i] == 32)
+		vars.i++;
+	if (str[vars.i] == '-' || str[vars.i] == '+')
 	{	
-		if (str[i] == '-')
-			is_negative *= -1;
-		i++;
+		if (str[vars.i] == '-')
+			vars.is_negative *= -1;
+		vars.i++;
 	}
-	while (str[i] >= 48 && str[i] <= 57)
+	while (str[vars.i] >= 48 && str[vars.i] <= 57)
 	{
-		number = number * 10 + (str[i] - 48);
-		i++;
+		vars.digit = str[vars.i] - 48;
+		if (vars.is_negative == 1 && (vars.number > (INT_MAX - vars.digit)\
+		 / 10))
+			return (INT_MAX);
+		if (vars.is_negative == -1 && (-vars.number < (INT_MIN + vars.digit)\
+		 / 10))
+			return (INT_MIN);
+		vars.number = vars.number * 10 + (str[vars.i] - 48);
+		vars.i++;
 	}
-	return (number * is_negative);
+	return (vars.number * vars.is_negative);
 }
