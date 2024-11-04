@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:42:06 by cluby             #+#    #+#             */
-/*   Updated: 2024/10/31 18:53:47 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/04 19:38:33 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_philo
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*n_fork;
+	t_data			*datas;
 }	t_philo;
 
 typedef struct	s_varatoi

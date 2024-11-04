@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:43:13 by cluby             #+#    #+#             */
-/*   Updated: 2024/10/31 18:08:27 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/04 19:32:13 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_error	create_structs(t_philo *philos, t_data *datas)
 	while (i < datas->nbr_philo)
 	{
 		philos[i].id = i + 1;
-		;
+		philos[i].datas = datas;
+		printf("%p = %d\n%p = %d\n", &philos[i].datas->ttd, philos[i].datas->ttd, &datas->ttd, datas->ttd);
 		if (pthread_mutex_init(&philos[i].fork, NULL))
 			return (MUTEX);
 		if (i == 0)
@@ -33,11 +34,15 @@ t_error	create_structs(t_philo *philos, t_data *datas)
 	return (OK);
 }
 
+/* t_error	create_threads(t_philo *philo)
+{
+	
+} */
+
 t_philo	*init_philos(t_data *datas)
 {
 	t_philo *philos;
 
-	printf("%d", datas->nbr_philo);
 	philos = malloc((datas->nbr_philo) * sizeof(t_philo));
 	if (!philos)
 		return (datas->error = MALLOC_PHILOS, NULL);
