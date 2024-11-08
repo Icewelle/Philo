@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:42:06 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/04 19:38:33 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/08 15:12:47 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ typedef enum	e_error
 
 typedef struct	s_data
 {
-	int		nbr_philo;
-	int		ttd;
-	int		tte;
-	int		tts;
-	int		nbr_eating;
-	bool	is_dead;
+	int				nbr_philo;
+	int				ttd;
+	int				tte;
+	int				tts;
+	int				nbr_eating;
+	bool			is_dead;
+	pthread_mutex_t	mutex;
 	t_error error;
 }	t_data;
 
@@ -70,6 +71,7 @@ t_data	*parsing(char **argv, int argc);
 /*----------------------------------------------------------------------------*/
 //Init philo values
 t_philo	*init_philos(t_data *datas);
+void 	*routine(void *arg);
 /*----------------------------------------------------------------------------*/
 //Errors
 void	errors(t_error error);

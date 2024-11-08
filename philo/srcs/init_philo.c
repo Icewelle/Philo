@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:43:13 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/04 19:32:13 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/07 16:36:59 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,16 @@ t_error	create_structs(t_philo *philos, t_data *datas)
 	return (OK);
 }
 
-/* t_error	create_threads(t_philo *philo)
+t_error	create_threads(t_philo *philo)
 {
-	
-} */
+	int	i;
+
+	i = 0;
+	while (i < philo[i].datas->nbr_philo)
+	{
+		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+	}
+}
 
 t_philo	*init_philos(t_data *datas)
 {
@@ -48,7 +54,7 @@ t_philo	*init_philos(t_data *datas)
 		return (datas->error = MALLOC_PHILOS, NULL);
 	if ((datas->error = create_structs(philos, datas)) != OK)
 		return (free(philos), NULL);
-	/* if (datas->error = create_threads(philos))
-		return (free(philos), NULL); */
+	if (datas->error = create_threads(philos))
+		return (free(philos), NULL);
 	return (philos);
 }

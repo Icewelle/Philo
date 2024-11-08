@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:33:24 by cluby             #+#    #+#             */
-/*   Updated: 2024/10/31 17:39:40 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/07 16:25:19 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_data(t_data *data)
 	data->nbr_eating = 0;
 	data->is_dead = false;
 	data->error = OK;
+	pthread_mutex_init(&data->mutex, NULL);
 }
 
 static void	init_vars(t_varatoi *vars)
