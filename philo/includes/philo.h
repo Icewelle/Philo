@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:42:06 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/08 15:12:47 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/11 12:56:02 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <sys/time.h>
 
 typedef enum	e_error
 {
@@ -27,7 +28,8 @@ typedef enum	e_error
 	MALLOC_PHILOS,
 	MUTEX,
 	EMPTY_TABLE,
-	MS_TOO_LOW
+	MS_TOO_LOW,
+	THREAD
 }	t_error;
 
 typedef struct	s_data
@@ -72,6 +74,9 @@ t_data	*parsing(char **argv, int argc);
 //Init philo values
 t_philo	*init_philos(t_data *datas);
 void 	*routine(void *arg);
+/*----------------------------------------------------------------------------*/
+//Routine
+void *routine(void *arg);
 /*----------------------------------------------------------------------------*/
 //Errors
 void	errors(t_error error);

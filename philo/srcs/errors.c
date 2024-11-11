@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 21:31:35 by cluby             #+#    #+#             */
-/*   Updated: 2024/10/31 18:57:09 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/10 05:08:47 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,6 @@ void	errors(t_error error)
 		printf("Error during memory allocation of : struct t_philo philos\n");
 	if (error == MS_TOO_LOW)
 		printf("They won't have time to do anything, put over 60 ms please\n");
+	if (error == THREAD)
+		printf("Error during thread initialization");
 }

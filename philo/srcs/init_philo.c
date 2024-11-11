@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:43:13 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/07 16:36:59 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/11 13:22:41 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_error	create_structs(t_philo *philos, t_data *datas)
 	{
 		philos[i].id = i + 1;
 		philos[i].datas = datas;
-		printf("%p = %d\n%p = %d\n", &philos[i].datas->ttd, philos[i].datas->ttd, &datas->ttd, datas->ttd);
 		if (pthread_mutex_init(&philos[i].fork, NULL))
 			return (MUTEX);
 		if (i == 0)
@@ -41,8 +40,15 @@ t_error	create_threads(t_philo *philo)
 	i = 0;
 	while (i < philo[i].datas->nbr_philo)
 	{
-		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]))
+			return (THREAD);
 	}
+	while (i < philo[i].datas->nbr_philo)
+	{
+		(pthread_join(philo[i].thread, NULL));
+		i++;
+	}
+	return (OK);
 }
 
 t_philo	*init_philos(t_data *datas)
@@ -54,7 +60,7 @@ t_philo	*init_philos(t_data *datas)
 		return (datas->error = MALLOC_PHILOS, NULL);
 	if ((datas->error = create_structs(philos, datas)) != OK)
 		return (free(philos), NULL);
-	if (datas->error = create_threads(philos))
+	if ((datas->error = create_threads(philos)))
 		return (free(philos), NULL);
 	return (philos);
 }
