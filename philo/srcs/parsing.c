@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:26:03 by cluby             #+#    #+#             */
-/*   Updated: 2024/10/31 18:53:34 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/13 11:16:51 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	put_datas(t_data *datas, char **argv)
 		datas->nbr_eating = ft_atoi(argv[5]);
 }
 
-static t_error verif_datas(t_data *datas)
+static t_error	verif_datas(t_data *datas)
 {
 	if (datas->nbr_philo < 1 || datas->nbr_philo > 200)
 		return (TOO_MANY_PHILO);

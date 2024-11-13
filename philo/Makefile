@@ -6,7 +6,7 @@
 #    By: cluby <cluby@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 16:19:28 by cluby             #+#    #+#              #
-#    Updated: 2024/11/11 12:55:22 by cluby            ###   ########.fr        #
+#    Updated: 2024/11/13 10:26:03 by cluby            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC =	main.c\
 		srcs/parsing.c\
 		srcs/errors.c\
 		srcs/init_philo.c\
-		srcs/routine.c
+		srcs/routine.c\
+		srcs/create_thread.c
 		
 OBJ = $(SRC:.c=.o)
 NAME = philo

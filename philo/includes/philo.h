@@ -5,19 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 14:42:06 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/11 12:56:02 by cluby            ###   ########.fr       */
+/*   Created: 2024/11/13 11:20:29 by cluby             #+#    #+#             */
+/*   Updated: 2024/11/13 13:30:36 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <sys/time.h>
+#ifndef PHILO_H
+# define PHILO_H
 
-typedef enum	e_error
+# include <pthread.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <sys/time.h>
+
+typedef enum e_error
 {
 	OK,
 	NBR_ARGS,
@@ -29,10 +33,11 @@ typedef enum	e_error
 	MUTEX,
 	EMPTY_TABLE,
 	MS_TOO_LOW,
-	THREAD
+	THREAD,
+	USLEEP
 }	t_error;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int				nbr_philo;
 	int				ttd;
@@ -41,10 +46,10 @@ typedef struct	s_data
 	int				nbr_eating;
 	bool			is_dead;
 	pthread_mutex_t	mutex;
-	t_error error;
+	t_error			error;
 }	t_data;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	int				meal;
@@ -54,7 +59,7 @@ typedef struct	s_philo
 	t_data			*datas;
 }	t_philo;
 
-typedef struct	s_varatoi
+typedef struct s_varatoi
 {
 	int	i;
 	int	number;
@@ -67,17 +72,21 @@ int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 void	init_data(t_data *data);
 t_error	handle_args(int argc);
+void	ft_usleep(int time);
 /*----------------------------------------------------------------------------*/
 //Parsing
 t_data	*parsing(char **argv, int argc);
 /*----------------------------------------------------------------------------*/
 //Init philo values
 t_philo	*init_philos(t_data *datas);
-void 	*routine(void *arg);
 /*----------------------------------------------------------------------------*/
 //Routine
-void *routine(void *arg);
+t_error	create_threads(t_philo *philo);
+void	*routine(void *arg);
+void	eating(t_philo *philo);
 /*----------------------------------------------------------------------------*/
 //Errors
 void	errors(t_error error);
 /*----------------------------------------------------------------------------*/
+
+#endif

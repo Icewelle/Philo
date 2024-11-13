@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 12:19:08 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/13 11:14:14 by cluby            ###   ########.fr       */
+/*   Created: 2024/11/13 10:20:45 by cluby             #+#    #+#             */
+/*   Updated: 2024/11/13 12:04:42 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+t_error	create_threads(t_philo *philo)
 {
-	t_data	*datas;
-	t_philo	*philos;
+	int	i;
+	int	nbr_philo;
 
-	datas = parsing(argv, argc);
-	if (datas->error != OK)
-		return (errors(datas->error), free(datas), 0);
-	philos = init_philos(datas);
-	if (!philos)
-		return (errors(datas->error), 0);
-	create_threads(philos);
-	if (datas->error != OK)
-		return (errors(datas->error), free(philos), free(datas), 0);
-	free(philos);
-	free(datas);
-	return (1);
+	i = 0;
+	nbr_philo = philo[0].datas->nbr_philo;
+	while (i < nbr_philo)
+	{
+		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
+			return (philo[i].datas->error = THREAD);
+		i++;
+	}
+	i = 0;
+	while (i < nbr_philo)
+	{
+		pthread_join(philo[i].thread, NULL);
+		i++;
+	}
+	return (OK);
 }

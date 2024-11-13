@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:43:13 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/11 13:22:41 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/13 11:19:07 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,15 @@ t_error	create_structs(t_philo *philos, t_data *datas)
 	return (OK);
 }
 
-t_error	create_threads(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo[i].datas->nbr_philo)
-	{
-		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]))
-			return (THREAD);
-	}
-	while (i < philo[i].datas->nbr_philo)
-	{
-		(pthread_join(philo[i].thread, NULL));
-		i++;
-	}
-	return (OK);
-}
-
 t_philo	*init_philos(t_data *datas)
 {
-	t_philo *philos;
+	t_philo	*philos;
 
 	philos = malloc((datas->nbr_philo) * sizeof(t_philo));
 	if (!philos)
 		return (datas->error = MALLOC_PHILOS, NULL);
-	if ((datas->error = create_structs(philos, datas)) != OK)
-		return (free(philos), NULL);
-	if ((datas->error = create_threads(philos)))
+	datas->error = create_structs(philos, datas);
+	if (datas->error != OK)
 		return (free(philos), NULL);
 	return (philos);
 }
