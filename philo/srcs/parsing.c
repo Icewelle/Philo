@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:26:03 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/13 11:16:51 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/18 12:12:06 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static t_error	verif_datas(t_data *datas)
 		return (TOO_MANY_PHILO);
 	if (datas->ttd < 60 || datas->tte < 60 || datas->tts < 60)
 		return (MS_TOO_LOW);
+	if (datas->nbr_eating == 0)
+		return (NBR_EAT);
 	return (OK);
 }
 
@@ -52,6 +54,8 @@ t_data	*parsing(char **argv, int argc)
 		return (datas);
 	init_data(datas);
 	datas->error = handle_args(argc);
+	if (datas->error != OK)
+		return (datas);
 	i = 1;
 	while (i < argc)
 	{

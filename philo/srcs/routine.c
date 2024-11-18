@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 16:37:16 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/13 13:28:04 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/18 13:30:30 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,19 @@ void	ft_usleep(int time)
 	
 	start = get_time();
 	while (get_time() - start < time)
-		usleep(150);
+		usleep(100);
+}
+
+static void	eating(t_philo	*philo)
+{
+	pthread_mutex_lock(&philo->fork);
+	print_thread("has taken a fork", philo);
+	pthread_mutex_lock(philo->n_fork);
+	print_thread("has taken a fork", philo);
+	print_thread("is eating", philo);
+	ft_usleep(philo->datas->tte);
+	pthread_mutex_unlock(&philo->fork);
+	pthread_mutex_unlock(philo->n_fork);
 }
 
 void	*routine(void *arg)
@@ -43,9 +55,13 @@ void	*routine(void *arg)
 	philos = (t_philo *)arg;
 	if (philos->id % 2 == 1)
 		ft_usleep(philos->datas->tte * 0.9 + 1);
-	while (philos->datas->is_dead || (philos->meal < philos->datas->nbr_eating))
+	while (philos->datas->is_dead == false)
 	{
-		eating()
+		eating(philos);
+		printf("test\n");
+		pthread_mutex_lock(&philos->datas->mutex);
+		philos->datas->is_dead = true; //test if watcher see this
+		pthread_mutex_unlock(&philos->datas->mutex);
 		//sleep
 		//think
 	}

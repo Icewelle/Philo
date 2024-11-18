@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 21:31:35 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/10 05:08:47 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/18 11:17:45 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ void	errors(t_error error)
 	if (error == NBR_ARGS)
 	{
 		printf("Format : [Nbr_philo] [Time_to_die] [Time_to_eat] ");
-		printf("[Time_to_sleep] [Time_to_think] (optioanal [Nbr_of_eating])\n");
+		printf("[Time_to_sleep] [Time_to_think] (optioanal [Nbr_of_meal])\n");
 	}
 	if (error == NOT_ONLY_NUMBERS || error == NEGATIVE_NUMBER)
 		printf("Only positive integer numbers are accepted.\n");
 	if (error == TOO_MANY_PHILO)
 		printf("No more than 200 philo can sit on this table.\n");
 	if (error == EMPTY_TABLE)
-		printf("At least one philo must sit on the table.");
+		printf("At least one philo must sit on the table.\n");
 	if (error == MALLOC_PHILOS)
-		printf("Error during memory allocation of : struct t_philo philos\n");
+		printf("Error during memory allocation of : struct t_philo philos.\n");
 	if (error == MS_TOO_LOW)
-		printf("They won't have time to do anything, put over 60 ms please\n");
+		printf("They won't have time to do anything, put over 60 ms please.\n");
 	if (error == THREAD)
-		printf("Error during thread initialization");
+		printf("Error during thread initialization.\n");
+	if (error == NBR_EAT)
+		printf("Number of meal must be superior to 0.\n");
 }

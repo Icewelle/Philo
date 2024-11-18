@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:20:29 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/13 13:30:36 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/18 12:45:22 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum e_error
 	EMPTY_TABLE,
 	MS_TOO_LOW,
 	THREAD,
-	USLEEP
+	USLEEP,
+	NBR_EAT
 }	t_error;
 
 typedef struct s_data
@@ -68,25 +69,27 @@ typedef struct s_varatoi
 }	t_varatoi;
 
 //Utils
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
-void	init_data(t_data *data);
-t_error	handle_args(int argc);
-void	ft_usleep(int time);
+int			ft_atoi(const char *str);
+int			ft_isdigit(int c);
+void		init_data(t_data *data);
+t_error		handle_args(int argc);
+void		ft_usleep(int time);
+long int	get_time(void);
+void		print_thread(char *str, t_philo *philos);
 /*----------------------------------------------------------------------------*/
 //Parsing
-t_data	*parsing(char **argv, int argc);
+t_data		*parsing(char **argv, int argc);
 /*----------------------------------------------------------------------------*/
 //Init philo values
-t_philo	*init_philos(t_data *datas);
+t_philo		*init_philos(t_data *datas);
 /*----------------------------------------------------------------------------*/
 //Routine
-t_error	create_threads(t_philo *philo);
-void	*routine(void *arg);
-void	eating(t_philo *philo);
+t_error		create_threads(t_philo *philo);
+void		*routine(void *arg);
+//void		eating(t_philo *philo);
 /*----------------------------------------------------------------------------*/
 //Errors
-void	errors(t_error error);
+void		errors(t_error error);
 /*----------------------------------------------------------------------------*/
 
 #endif

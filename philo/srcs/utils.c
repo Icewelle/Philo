@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:33:24 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/13 11:16:25 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/18 11:23:44 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_data(t_data *data)
 	data->ttd = 0;
 	data->tte = 0;
 	data->tts = 0;
-	data->nbr_eating = 0;
+	data->nbr_eating = -1;
 	data->is_dead = false;
 	data->error = OK;
 	pthread_mutex_init(&data->mutex, NULL);

@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 12:19:08 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/13 11:14:14 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/18 12:11:45 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char **argv)
 	t_philo	*philos;
 
 	datas = parsing(argv, argc);
+	if (!datas)
+		return (0);
 	if (datas->error != OK)
 		return (errors(datas->error), free(datas), 0);
 	philos = init_philos(datas);
