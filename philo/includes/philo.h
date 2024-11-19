@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:20:29 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/19 12:30:12 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/19 14:03:35 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		init_data(t_data *data);
 t_error		handle_args(int argc);
-void		ft_usleep(int time);
-long int	get_time(void);
+void		ft_usleep(int time, t_philo *philo);
+long int	get_time(t_philo *philo);
 void		print_thread(char *str, t_philo *philos);
+void		is_dead(t_philo *philos);
+void		last_meal(t_philo *philo);
 /*----------------------------------------------------------------------------*/
 //Parsing
 t_data		*parsing(char **argv, int argc);

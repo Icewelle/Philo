@@ -6,19 +6,21 @@
 #    By: cluby <cluby@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 12:48:03 by cluby             #+#    #+#              #
-#    Updated: 2024/11/19 12:50:46 by cluby            ###   ########.fr        #
+#    Updated: 2024/11/19 13:30:59 by cluby            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAKEFLAGS += --silent
 C = cc
-CFLAGS = -Wall -Werror -Wextra -Iinclude -g
+CFLAGS = -Wall -Werror -Wextra -Iincludes -g3 -pthread
 SRC =	main.c\
 		srcs/create_thread.c\
 		srcs/errors.c\
 		srcs/init_philo.c\
-		srcs/routine.\
-		srcs/utils.c
+		srcs/routine.c\
+		srcs/utils.c\
+		srcs/parsing.c\
+		srcs/utils2.c
 OBJ = $(SRC:.c=.o)
 NAME = philo
 

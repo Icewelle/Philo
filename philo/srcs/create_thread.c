@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 10:20:45 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/19 12:30:11 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/19 14:56:57 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	print_thread(char *str, t_philo *philos)
 {
+	long int	time;
+
+	time = get_time(philos);
 	pthread_mutex_lock(&philos->datas->mutex);
 	if (philos->datas->is_dead == false)
-		printf("%ld %d %s\n", get_time(), philos->id, str);
+		printf("%ld %d %s\n", time, philos->id, str);
 	pthread_mutex_unlock(&philos->datas->mutex);
 }
 
@@ -32,16 +35,13 @@ void	ft_watcher(t_philo *philos)
 		pthread_mutex_lock(&philos[i].datas->mutex);
 		if (philos[i].datas->nbr_philo < 2)
 			philos[i].datas->is_dead = true;
+		if (get_time(philos) > (philos->last_meal + philos->datas->ttd))
+			philos->datas->is_dead = true;
 		if (philos[i].datas->is_dead == true)
 		{
-			philos[i].datas->is_dead = true;
-			printf("%ld %d died\n", get_time(), philos[i].id);
-		}
-		//printf("time = %ld || result = %ld", get_time(), philos[i].last_meal + philos[i].datas->ttd);
-		if (get_time() > (philos[i].last_meal + philos[i].datas->ttd))
-		{
-			philos[i].datas->is_dead = true;
-			printf("%ld %d died\n", get_time(), philos[i].id);
+			printf("%ld %d died\n", get_time(philos), philos[i].id);
+			pthread_mutex_unlock(&philos[i].datas->mutex);
+			return ;
 		}
 		pthread_mutex_unlock(&philos[i].datas->mutex);
 	}
