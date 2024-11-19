@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:43:13 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/19 12:30:08 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/19 12:43:09 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_error	create_structs(t_philo *philos, t_data *datas)
 		if (pthread_mutex_init(&philos[i].fork, NULL))
 			return (MUTEX);
 		if (i == datas->nbr_philo - 1)
-            philos[i].n_fork = &philos[0].fork; // Last philosopher's n_fork points to the first philosopher's fork
+            philos[i].n_fork = &philos[0].fork;
         else
             philos[i].n_fork = &philos[i + 1].fork;
 		philos[i].meal = 0;
