@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 10:20:45 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/19 14:56:57 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/20 10:58:57 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	print_thread(char *str, t_philo *philos)
 {
 	long int	time;
 
-	time = get_time(philos);
 	pthread_mutex_lock(&philos->datas->mutex);
+	time = get_time();
 	if (philos->datas->is_dead == false)
 		printf("%ld %d %s\n", time, philos->id, str);
 	pthread_mutex_unlock(&philos->datas->mutex);
@@ -28,32 +28,27 @@ void	ft_watcher(t_philo *philos)
 	int	i;
 	int	nbr_philo;
 	
-	nbr_philo = philos->datas->nbr_philo;
 	i = -1;
+	pthread_mutex_lock(&philos->datas->mutex);
+	nbr_philo = philos->datas->nbr_philo;
+	pthread_mutex_unlock(&philos->datas->mutex);
 	while (i++ < nbr_philo - 1)
 	{
 		pthread_mutex_lock(&philos[i].datas->mutex);
 		if (philos[i].datas->nbr_philo < 2)
 			philos[i].datas->is_dead = true;
-		if (get_time(philos) > (philos->last_meal + philos->datas->ttd))
+		if (get_time() > (philos->last_meal + philos->datas->ttd))
 			philos->datas->is_dead = true;
 		if (philos[i].datas->is_dead == true)
 		{
-			printf("%ld %d died\n", get_time(philos), philos[i].id);
+			printf("%ld %d died\n", get_time(), philos[i].id);
 			pthread_mutex_unlock(&philos[i].datas->mutex);
+
 			return ;
 		}
 		pthread_mutex_unlock(&philos[i].datas->mutex);
+
 	}
-}
-
-void	set_start(long int	*start)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL))
-		return;
-	(*start) = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 }
 
 t_error	create_threads(t_philo *philos)
@@ -63,7 +58,6 @@ t_error	create_threads(t_philo *philos)
 
 	i = 0;
 	nbr_philos = philos[0].datas->nbr_philo;
-	set_start(&philos->datas->start);
 	while (i < nbr_philos)
 	{
 		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]) != 0)
@@ -74,7 +68,7 @@ t_error	create_threads(t_philo *philos)
 	while (philos->datas->is_dead == false)
 	{
 		ft_watcher(philos);
-		usleep(150);
+		usleep(500);
 	}
 	while (i < nbr_philos)
 	{

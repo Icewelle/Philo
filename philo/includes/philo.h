@@ -6,7 +6,7 @@
 /*   By: cluby <cluby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:20:29 by cluby             #+#    #+#             */
-/*   Updated: 2024/11/19 14:03:35 by cluby            ###   ########.fr       */
+/*   Updated: 2024/11/20 10:57:19 by cluby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_data
 	int				tts;
 	int				nbr_eating;
 	bool			is_dead;
-	long int		start;
 	pthread_mutex_t	mutex;
 	t_error			error;
 }	t_data;
@@ -56,8 +55,6 @@ typedef struct s_philo
 	int				id;
 	int				meal;
 	long int		last_meal;
-	long int		time;
-	struct timeval	now;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*n_fork;
@@ -79,8 +76,8 @@ int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		init_data(t_data *data);
 t_error		handle_args(int argc);
-void		ft_usleep(int time, t_philo *philo);
-long int	get_time(t_philo *philo);
+void		ft_usleep(int time);
+long int	get_time(void);
 void		print_thread(char *str, t_philo *philos);
 void		is_dead(t_philo *philos);
 void		last_meal(t_philo *philo);
